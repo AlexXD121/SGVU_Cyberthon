@@ -11,7 +11,9 @@
 
 -   **Deepfake & Text Analysis:** Uses a fine-tuned **DistilRoBERTa** transformer model to analyze text trustworthiness with high precision.
 -   **Real-time Trust Score:** Generates a 0-100 verification score for any text input.
--   **Live Scam Feed:** Aggregates and displays trending security threats and diverse fraud alerts.
+-   **Blockchain-Ready Hashing:** SHA-256 fingerprinting for immutable proof of verification.
+-   **Live Scam Feed:** Aggregates and displays trending security threats from TheHackersNews & KrebsOnSecurity.
+-   **Report & Reward System:** Community-driven scam reporting with crypto reward payouts.
 -   **Public API:** Open infrastructure for easy integration with frontend and external apps.
 
 ## 🛠️ Tech Stack
@@ -69,6 +71,19 @@ SGVU_Hackathon/
 4.  **Access API**
     -   Docs: `http://localhost:8000/docs`
     -   Health: `http://localhost:8000/`
+
+## 🔌 API Endpoints
+
+### Core Features
+-   `POST /verify` - Analyze text and get trust score with blockchain hash
+-   `GET /feed` - Get live scam feed from security news sources
+
+### Report & Reward System
+-   `POST /report` - Submit a scam URL for community reporting
+-   `GET /admin/reports` - View all reports (filter by status)
+-   `POST /admin/verify` - Verify if reported URL is a scam (admin)
+-   `POST /reward/wallet` - Submit wallet address to claim reward
+-   `POST /reward/send` - Send crypto reward to reporter (admin)
 
 ## 👥 Team & Roles
 
