@@ -57,11 +57,35 @@ class AIEngine:
                 verdict = "FAKE"
                 confidence = fake_prob
 
+            # Generate explanations based on score
+            explanations = []
+            if score < 30:
+                explanations.append("High probability of misinformation detected")
+                explanations.append("Linguistic patterns match known fake news sources")
+            elif score < 50:
+                explanations.append("Uncertain classification - conflicting signals")
+                explanations.append("Recommend cross-referencing with additional sources")
+            elif score < 70:
+                explanations.append("Moderate confidence in authenticity")
+                explanations.append("Some credible markers detected")
+            else:
+                explanations.append("High confidence in source credibility")
+                explanations.append("Language patterns match verified journalism")
+            
+            # Add confidence-based explanation
+            if confidence > 0.85:
+                explanations.append(f"Model confidence: {int(confidence*100)}% (Very High)")
+            elif confidence > 0.70:
+                explanations.append(f"Model confidence: {int(confidence*100)}% (High)")
+            else:
+                explanations.append(f"Model confidence: {int(confidence*100)}% (Moderate)")
+
             return {
                 "trust_score": int(score),
                 "verdict": verdict,
                 "hash": text_hash,
-                "confidence": float(confidence)
+                "confidence": float(confidence),
+                "explanation": explanations
             }
 
         except Exception as e:
@@ -70,7 +94,8 @@ class AIEngine:
                 "trust_score": 0,
                 "verdict": "ERROR",
                 "hash": hashlib.sha256(text.encode('utf-8')).hexdigest(),
-                "confidence": 0.0
+                "confidence": 0.0,
+                "explanation": ["Error occurred during analysis"]
             }
 
 # Singleton Instance

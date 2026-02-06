@@ -128,7 +128,9 @@ const StoryCluster = ({ id, mainHeadline, clusterTitle, mainStory, relatedStorie
 export default function Feed() {
     const navItems = [
         { label: 'Home', href: '/' },
-        { label: 'Live Feed', href: '/feed' }
+        { label: 'Verify', href: '/verify' },
+        { label: 'Live Feed', href: '/feed' },
+        { label: 'Report Scam', href: '/report' }
     ];
 
     return (

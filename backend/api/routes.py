@@ -30,6 +30,8 @@ async def verify_text(request: VerifyRequest):
         trust_score=result["trust_score"],
         verdict=result["verdict"],
         hash=result["hash"],
+        confidence=result["confidence"],
+        explanation=result.get("explanation", []),
         timestamp=datetime.now()
     )
 
@@ -47,6 +49,7 @@ async def create_report(request: ReportRequest):
         "reportId": report_id,
         "url": request.url,
         "reason": request.reason,
+        "staked_tokens": request.stake_amount,
         "status": ReportStatus.PENDING,
         "rewardStatus": RewardStatus.NONE,
         "submittedAt": datetime.now(),
@@ -60,6 +63,7 @@ async def create_report(request: ReportRequest):
         reportId=report_id,
         url=request.url,
         status=ReportStatus.PENDING,
+        staked_tokens=request.stake_amount,
         submittedAt=report_data["submittedAt"]
     )
 

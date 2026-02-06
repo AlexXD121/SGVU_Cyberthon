@@ -6,7 +6,9 @@ import Link from 'next/link';
 export default function Home() {
   const navItems = [
     { label: 'Home', href: '/' },
-    { label: 'Live Feed', href: '/feed' }
+    { label: 'Verify', href: '/verify' },
+    { label: 'Live Feed', href: '/feed' },
+    { label: 'Report Scam', href: '/report' }
   ];
 
   return (
@@ -71,7 +73,7 @@ export default function Home() {
             </p>
 
             <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
-              <Link href="/feed" style={{
+              <Link href="/verify" style={{
                 background: '#3b82f6',
                 color: 'white',
                 padding: '1rem 2rem',
@@ -85,11 +87,11 @@ export default function Home() {
                 textTransform: 'uppercase',
                 letterSpacing: '0.05em'
               }}>
-                ACCESS SYSTEM
+                VERIFY TEXT
                 <ArrowRight size={18} />
               </Link>
 
-              <Link href="/analytics" style={{
+              <Link href="/feed" style={{
                 border: '1px solid rgba(255, 255, 255, 0.1)',
                 background: 'rgba(255, 255, 255, 0.02)',
                 color: 'white',
@@ -104,7 +106,25 @@ export default function Home() {
                 textTransform: 'uppercase',
                 letterSpacing: '0.05em'
               }}>
-                NETWORK LOGS
+                LIVE FEED
+              </Link>
+
+              <Link href="/report" style={{
+                border: '1px solid rgba(239, 68, 68, 0.3)',
+                background: 'rgba(239, 68, 68, 0.1)',
+                color: '#ef4444',
+                padding: '1rem 2rem',
+                borderRadius: '2px',
+                fontWeight: 600,
+                fontSize: '0.9rem',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.75rem',
+                transition: 'all 0.2s ease',
+                textTransform: 'uppercase',
+                letterSpacing: '0.05em'
+              }}>
+                REPORT SCAM
               </Link>
             </div>
           </div>

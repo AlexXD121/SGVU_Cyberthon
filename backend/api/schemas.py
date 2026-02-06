@@ -24,17 +24,21 @@ class VerifyResponse(BaseModel):
     trust_score: int
     verdict: str
     hash: str  # <--- CRITICAL: Blockchain proof hash
+    confidence: float  # Confidence percentage (0.0 to 1.0)
+    explanation: Optional[list[str]] = None  # Explainability signals
     timestamp: datetime
 
 # --- Report & Reward Models ---
 class ReportRequest(BaseModel):
     url: str
     reason: str
+    stake_amount: Optional[int] = 10  # TRU tokens staked (default 10)
 
 class ReportResponse(BaseModel):
     reportId: str
     url: str
     status: ReportStatus
+    staked_tokens: int  # Amount of tokens staked
     submittedAt: datetime
 
 class AdminVerifyRequest(BaseModel):
