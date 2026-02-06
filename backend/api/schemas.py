@@ -9,4 +9,5 @@ class VerifyRequest(BaseModel):
 class VerifyResponse(BaseModel):
     trust_score: int
     verdict: str
+    hash: str
     timestamp: datetime

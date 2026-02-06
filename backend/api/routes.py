@@ -16,6 +16,7 @@ async def verify_text(request: VerifyRequest):
     return VerifyResponse(
         trust_score=result["trust_score"],
         verdict=result["verdict"],
+        hash=result["hash"],
         timestamp=datetime.now()
     )
 

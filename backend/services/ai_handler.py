@@ -1,5 +1,6 @@
 import torch
 import torch.nn.functional as F
+import hashlib
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 
 class AIEngine:
@@ -20,10 +21,13 @@ class AIEngine:
 
     def analyze(self, text: str) -> dict:
         """
-        Analyzes the text and returns a trust score.
-        Trust Scope: 0 (Fake) to 100 (Real)
+        Analyzes the text and returns a trust score with SHA-256 hash.
+        Trust Score: 0 (Fake) to 100 (Real)
         """
         try:
+            # Generate SHA-256 hash of input text
+            text_hash = hashlib.sha256(text.encode('utf-8')).hexdigest()
+            
             # Tokenize input
             inputs = self.tokenizer(
                 text, 
@@ -39,22 +43,16 @@ class AIEngine:
                 logits = outputs.logits
                 probs = F.softmax(logits, dim=1).squeeze().tolist()
 
-            # The model outputs [REAL_SCORE, FAKE_SCORE] or [FAKE_SCORE, REAL_SCORE]
-            # Checked model card/config: label 0 is "FAKE", label 1 is "REAL" usually for this model type
-            # But specific model "vikram71198/distilroberta-base-finetuned-fake-news-detection":
-            # Label 0: FAKE, Label 1: REAL
-            
+            # Model outputs: Label 0 = FAKE, Label 1 = REAL
             fake_prob = probs[0]
             real_prob = probs[1]
             
-            # Logic: Trust Score Calculation
+            # Trust Score Calculation
             if real_prob > fake_prob:
-                # High trust: 50 + (0.5 to 1.0 * 50) -> 75 to 100
                 score = 50 + (real_prob * 50)
                 verdict = "REAL"
                 confidence = real_prob
             else:
-                # Low trust: 50 - (0.5 to 1.0 * 50) -> 25 to 0
                 score = 50 - (fake_prob * 50)
                 verdict = "FAKE"
                 confidence = fake_prob
@@ -62,6 +60,7 @@ class AIEngine:
             return {
                 "trust_score": int(score),
                 "verdict": verdict,
+                "hash": text_hash,
                 "confidence": float(confidence)
             }
 
@@ -70,6 +69,7 @@ class AIEngine:
             return {
                 "trust_score": 0,
                 "verdict": "ERROR",
+                "hash": hashlib.sha256(text.encode('utf-8')).hexdigest(),
                 "confidence": 0.0
             }
 
