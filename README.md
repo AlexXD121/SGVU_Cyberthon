@@ -68,7 +68,13 @@ SGVU_Hackathon/
     ```
     *The first run will download the 330MB AI model automatically.*
 
-4.  **Access API**
+4.  **Run Tests**
+    Verify the system is operational:
+    ```bash
+    python backend/test_api.py
+    ```
+
+5.  **Access API**
     -   Docs: `http://localhost:8000/docs`
     -   Health: `http://localhost:8000/`
 

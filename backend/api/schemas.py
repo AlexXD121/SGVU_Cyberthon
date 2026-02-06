@@ -1,7 +1,21 @@
-from pydantic import BaseModel, HttpUrl
+from pydantic import BaseModel
 from typing import Optional
 from datetime import datetime
+from enum import Enum
 
+# --- Enums ---
+class ReportStatus(str, Enum):
+    PENDING = "pending"
+    VERIFIED = "verified"
+    REJECTED = "rejected"
+
+class RewardStatus(str, Enum):
+    NONE = "none"
+    AWAITING_WALLET = "awaiting_wallet"
+    READY_FOR_PAYOUT = "ready_for_payout"
+    PAID = "paid"
+
+# --- AI Verification Models ---
 class VerifyRequest(BaseModel):
     text: str
     source_url: Optional[str] = None
@@ -9,24 +23,10 @@ class VerifyRequest(BaseModel):
 class VerifyResponse(BaseModel):
     trust_score: int
     verdict: str
-    hash: str
+    hash: str  # <--- CRITICAL: Blockchain proof hash
     timestamp: datetime
 
-# Report & Reward System Enums
-from enum import Enum
-
-class ReportStatus(str, Enum):
-    pending = "pending"
-    verified = "verified"
-    rejected = "rejected"
-
-class RewardStatus(str, Enum):
-    none = "none"
-    awaiting_wallet = "awaiting_wallet"
-    ready_for_payout = "ready_for_payout"
-    paid = "paid"
-
-# Report & Reward System Models
+# --- Report & Reward Models ---
 class ReportRequest(BaseModel):
     url: str
     reason: str

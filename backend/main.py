@@ -1,6 +1,16 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from api.routes import api_router
+try:
+    from backend.api.routes import api_router
+except ImportError:
+    try:
+        from api.routes import api_router
+    except ImportError:
+        # Fallback for when running from root without package context
+        import sys
+        import os
+        sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
+        from backend.api.routes import api_router
 
 app = FastAPI(title="TRU Backend", version="0.1.0")
 

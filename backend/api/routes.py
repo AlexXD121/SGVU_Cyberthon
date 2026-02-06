@@ -5,8 +5,12 @@ from .schemas import (
     ReportRequest, ReportResponse, ReportStatus, RewardStatus,
     AdminVerifyRequest, WalletSubmitRequest, RewardSendRequest
 )
-from services.ai_handler import ai_engine
-from services.feed_manager import fetch_security_feed
+try:
+    from services.ai_handler import ai_engine
+    from services.feed_manager import fetch_security_feed
+except ImportError:
+    from backend.services.ai_handler import ai_engine
+    from backend.services.feed_manager import fetch_security_feed
 import uuid
 
 api_router = APIRouter()
@@ -43,8 +47,8 @@ async def create_report(request: ReportRequest):
         "reportId": report_id,
         "url": request.url,
         "reason": request.reason,
-        "status": ReportStatus.pending,
-        "rewardStatus": RewardStatus.none,
+        "status": ReportStatus.PENDING,
+        "rewardStatus": RewardStatus.NONE,
         "submittedAt": datetime.now(),
         "walletAddress": None,
         "txHash": None
@@ -55,7 +59,7 @@ async def create_report(request: ReportRequest):
     return ReportResponse(
         reportId=report_id,
         url=request.url,
-        status=ReportStatus.pending,
+        status=ReportStatus.PENDING,
         submittedAt=report_data["submittedAt"]
     )
 
@@ -76,11 +80,11 @@ async def verify_report(request: AdminVerifyRequest):
     report = reports_db[request.reportId]
     
     if request.isScam:
-        report["status"] = ReportStatus.verified
-        report["rewardStatus"] = RewardStatus.awaiting_wallet
+        report["status"] = ReportStatus.VERIFIED
+        report["rewardStatus"] = RewardStatus.AWAITING_WALLET
     else:
-        report["status"] = ReportStatus.rejected
-        report["rewardStatus"] = RewardStatus.none
+        report["status"] = ReportStatus.REJECTED
+        report["rewardStatus"] = RewardStatus.NONE
     
     return {"message": "Report updated", "report": report}
 
@@ -92,14 +96,14 @@ async def submit_wallet(request: WalletSubmitRequest):
     
     report = reports_db[request.reportId]
     
-    if report["rewardStatus"] != RewardStatus.awaiting_wallet:
+    if report["rewardStatus"] != RewardStatus.AWAITING_WALLET:
         raise HTTPException(
             status_code=400, 
             detail="Report not eligible for wallet submission"
         )
     
     report["walletAddress"] = request.walletAddress
-    report["rewardStatus"] = RewardStatus.ready_for_payout
+    report["rewardStatus"] = RewardStatus.READY_FOR_PAYOUT
     
     return {"message": "Wallet address saved", "report": report}
 
@@ -111,7 +115,7 @@ async def send_reward(request: RewardSendRequest):
     
     report = reports_db[request.reportId]
     
-    if report["rewardStatus"] != RewardStatus.ready_for_payout:
+    if report["rewardStatus"] != RewardStatus.READY_FOR_PAYOUT:
         raise HTTPException(
             status_code=400,
             detail="Report not ready for payout"
@@ -120,7 +124,7 @@ async def send_reward(request: RewardSendRequest):
     # Generate fake transaction hash
     fake_tx_hash = f"0x{uuid.uuid4().hex}{uuid.uuid4().hex[:24]}"
     
-    report["rewardStatus"] = RewardStatus.paid
+    report["rewardStatus"] = RewardStatus.PAID
     report["txHash"] = fake_tx_hash
     
     return {
