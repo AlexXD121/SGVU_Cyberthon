@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import PillNav from "@/components/PillNav";
+import Footer from "@/components/Footer";
 import { Send, CheckCircle2, AlertCircle, DollarSign } from 'lucide-react';
 import { api, type ReportResponse } from '@/lib/api';
 
@@ -33,7 +34,7 @@ export default function ReportPage() {
         setResult(null);
 
         try {
-            const response = await api.submitReport(url, reason, stakeAmount);
+            const response = await api.submitReport({ url, reason, stake_amount: stakeAmount });
             setResult(response);
             // Clear form on success
             setUrl('');
@@ -321,6 +322,8 @@ export default function ReportPage() {
                     </ul>
                 </div>
             </div>
+
+            <Footer />
 
             <style jsx>{`
         @keyframes spin {

@@ -1,5 +1,9 @@
+'use client';
+
 import PillNav from "@/components/PillNav";
 import GridBackground from "@/components/GridBackground";
+import WorkflowPipeline from "@/components/WorkflowPipeline";
+import Footer from "@/components/Footer";
 import { ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 
@@ -12,7 +16,7 @@ export default function Home() {
   ];
 
   return (
-    <main style={{ minHeight: '100vh', position: 'relative', overflow: 'hidden' }}>
+    <main style={{ minHeight: '100vh', position: 'relative', background: '#05070a' }}>
       <PillNav
         items={navItems}
         activeHref="/"
@@ -24,15 +28,16 @@ export default function Home() {
 
       <GridBackground />
 
-      {/* Content Layer */}
+      {/* Content Layer (Hero) */}
       <section style={{
-        height: '100vh',
+        minHeight: '100vh',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'center',
-        padding: '2rem',
-        textAlign: 'center'
+        padding: '6rem 2rem',
+        textAlign: 'center',
+        position: 'relative'
       }}>
         <div style={{ zIndex: 1, maxWidth: '900px', position: 'relative' }}>
           {/* Decorative Corner Accents */}
@@ -72,7 +77,7 @@ export default function Home() {
               A precision framework designed for the real-time identification and tracking of misinformation patterns within complex digital ecosystems.
             </p>
 
-            <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
+            <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
               <Link href="/verify" style={{
                 background: '#3b82f6',
                 color: 'white',
@@ -132,26 +137,41 @@ export default function Home() {
           <div style={{ position: 'absolute', bottom: '-40px', left: '-40px', width: '20px', height: '20px', borderBottom: '2px solid rgba(59, 130, 246, 0.4)', borderLeft: '2px solid rgba(59, 130, 246, 0.4)' }} />
           <div style={{ position: 'absolute', bottom: '-40px', right: '-40px', width: '20px', height: '20px', borderBottom: '2px solid rgba(59, 130, 246, 0.4)', borderRight: '2px solid rgba(59, 130, 246, 0.4)' }} />
         </div>
+
+        {/* Hero Section Footer (In-Hero) */}
+        <div style={{
+          position: 'absolute',
+          bottom: '2rem',
+          left: '0',
+          right: '0',
+          display: 'flex',
+          justifyContent: 'center',
+          gap: '4rem',
+          opacity: 0.5,
+          fontSize: '0.7rem',
+          fontWeight: 700,
+          color: 'white',
+          letterSpacing: '0.2em',
+          textTransform: 'uppercase'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <div style={{ width: '4px', height: '4px', borderRadius: '50%', background: '#3b82f6' }} />
+            REAL-TIME MONITORING
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <div style={{ width: '4px', height: '4px', borderRadius: '50%', background: '#3b82f6' }} />
+            AI VERIFICATION
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <div style={{ width: '4px', height: '4px', borderRadius: '50%', background: '#3b82f6' }} />
+            BLOCKCHAIN PROOF
+          </div>
+        </div>
       </section>
 
-      {/* Decorative Bottom Bar */}
-      <div style={{
-        position: 'absolute',
-        bottom: 0,
-        width: '100%',
-        padding: '1rem 2rem',
-        borderTop: '1px solid rgba(255, 255, 255, 0.1)',
-        display: 'flex',
-        justifyContent: 'space-between',
-        fontSize: '0.75rem',
-        color: 'var(--text-muted)',
-        fontFamily: 'monospace',
-        zIndex: 10
-      }}>
-        <span>STATUS: ACTIVE_MONITORING</span>
-        <span>LOCATION: GLOBAL_NODES</span>
-        <span>ENCRYPTION: AES-256</span>
-      </div>
+      <WorkflowPipeline />
+
+      <Footer />
     </main>
   );
 }
