@@ -8,7 +8,7 @@ class AIEngine:
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         print(f"Loading AIEngine on {self.device}...")
         
-        model_name = "vikram71198/distilroberta-base-finetuned-fake-news-detection"
+        model_name = "hamzab/roberta-fake-news-classification"
         
         try:
             self.tokenizer = AutoTokenizer.from_pretrained(model_name)
@@ -43,11 +43,11 @@ class AIEngine:
                 logits = outputs.logits
                 probs = F.softmax(logits, dim=1).squeeze().tolist()
 
-            # Model outputs: Label 0 = REAL, Label 1 = FAKE
-            # NOTE: This is REVERSED from typical convention and Hugging Face docs!
-            # Our testing confirmed: obvious fake news gets high Label_1 probability
-            real_prob = probs[0]  # SWAPPED
-            fake_prob = probs[1]  # SWAPPED
+            # Model: hamzab/roberta-fake-news-classification
+            # Confirmed via testing: Label 0 = FAKE, Label 1 = REAL
+            # (This is OPPOSITE of the previous vikram71198 model)
+            fake_prob = probs[0]  
+            real_prob = probs[1]
             
             # Trust Score Calculation
             if real_prob > fake_prob:

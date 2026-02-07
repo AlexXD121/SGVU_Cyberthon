@@ -15,16 +15,22 @@
 
 **🎉 Latest Updates (Feb 2026):**
 - ✅ **Frontend-Backend Integration Complete** - All 4 core features now functional
-- ✅ **AI Brain Fixed** - Corrected model label interpretation (Label 0=REAL, Label 1=FAKE)
+- ✅ **AI Model UPGRADED** - Now using `hamzab/roberta-fake-news-classification` (95%+ accuracy)
+- ✅ **Fake News Detection WORKING** - Fake news: 0/100, Real news: 99/100
 - ✅ **New Pages**: `/verify` (AI verification), `/report` (scam submission)
 - ✅ **Enhanced APIs**: Confidence scores, explanation arrays, stake-based reporting
-- 🔴 **Known Issue**: Current model has poor calibration (classifies most text as fake)
-- 📋 **Action Item**: Upgrading to `hamzab/roberta-fake-news-classification` for Phase 2
+- ✅ **Team Collaboration**: Hardik added blockchain smart contract (`ContentIdentityAnchor.sol`)
 
 **🌐 Live Demo:**
 - Frontend: `http://localhost:3000` (Next.js + React)
 - Backend API: `http://localhost:8000` (FastAPI)
 - API Docs: `http://localhost:8000/docs` (Swagger UI)
+
+**🧠 AI Test Results:**
+- "Breaking: Drink bleach cures COVID!" → **0/100 FAKE** ✅
+- "Elon Musk Bitcoin giveaway scam" → **0/100 FAKE** ✅
+- "Federal Reserve maintains rates" → **99/100 REAL** ✅
+- "MIT researchers publish study" → **99/100 REAL** ✅
 
 ---
 
