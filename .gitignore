@@ -27,14 +27,74 @@ venv/
 env/
 ENV/
 .env
+.env.local
 .venv/
 
 # IDEs
 .vscode/
 .idea/
+*.swp
+*.swo
+*~
+.DS_Store
 
 # Backend Specific
 backend/models/
 *.pt
 *.bin
 *.onnx
+
+# Node.js / Frontend
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnp.*
+.next/
+out/
+.turbo/
+*.tsbuildinfo
+.cache/
+
+# Environment Variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Testing
+coverage/
+*.coverage
+.pytest_cache/
+.nyc_output/
+
+# Logs
+*.log
+logs/
+*.log.*
+
+# OS Files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporary Files
+*.tmp
+*.temp
+tmp/
+temp/
+
+# AI Model Cache
+.transformers_cache/
+.cache/huggingface/
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+
+# Build outputs
+*.exe
+*.out
+*.app
