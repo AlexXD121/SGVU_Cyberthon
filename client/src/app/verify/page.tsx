@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import PillNav from "@/components/PillNav";
+import Footer from "@/components/Footer";
 import { Send, Copy, Shield, AlertTriangle, CheckCircle2, Info } from 'lucide-react';
 import { api, type VerifyResponse } from '@/lib/api';
 
@@ -371,6 +372,8 @@ export default function VerifyPage() {
                     </div>
                 )}
             </div>
+
+            <Footer />
 
             <style jsx>{`
         @keyframes spin {

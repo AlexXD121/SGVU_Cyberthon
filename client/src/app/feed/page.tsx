@@ -2,6 +2,7 @@
 
 import React from 'react';
 import PillNav from "@/components/PillNav";
+import Footer from "@/components/Footer";
 import { ChevronRight, LayoutGrid, AlertCircle, CheckCircle2, Clock } from 'lucide-react';
 import { motion } from 'framer-motion';
 
@@ -174,6 +175,8 @@ export default function Feed() {
                     [END OF STREAM] REFRESH TO SYNC WITH LATEST NODES
                 </div>
             </div>
+
+            <Footer />
         </main>
     );
 }
